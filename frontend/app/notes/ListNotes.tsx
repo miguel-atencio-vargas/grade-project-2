@@ -36,8 +36,10 @@ export default function ListNotes({ isArchived = false }: { isArchived?: boolean
         (notes.length === 0 && isArchived === false)
           ? <GoToPage href={'notes/add'} text={'Add a note'} />
           : <ul className='grid grid-cols-4 gap-4'> {notes.map((note: INote) => (
-            <li className="border-2 border-slate-700 rounded-lg p-2 overflow-auto" key={note.uuid}>
-              <Link className="text-1xl text-center flex justify-center" href={`update?uuid=${note.uuid}`}>{note.content}</Link>
+            <li className="aspect-square rounded-3xl p-6 shadow-lg hover:shadow-xl transition-transform hover:-translate-y-1 cursor-pointer flex items-center justify-center text-center overflow-hidden bg-white border-2 border-pastel-lavender hover:border-pastel-mint group" key={note.uuid}>
+              <Link className="w-full h-full flex items-center justify-center text-xl font-semibold text-gray-700 group-hover:text-pastel-pink transition-colors" href={process.env.NODE_ENV === 'development' ? `/notes/update?uuid=${note.uuid}` : `/notes/update/index.html?uuid=${note.uuid}`}>
+                <span className="line-clamp-5">{note.content}</span>
+              </Link>
             </li>
           ))} </ul>
       }
