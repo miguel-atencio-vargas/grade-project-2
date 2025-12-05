@@ -11,14 +11,25 @@ export default function GoToPage({ href, text }: IGoToPage) {
   // Remove ./ prefix if present
   if (path.startsWith('./')) {
     path = path.slice(2);
-  } else if (path === '.') {
-    path = '';
-  }
+    // Clean relative prefixes
+    if (path.startsWith('./')) path = path.slice(2);
+    if (path === '.') path = '';
 
-  // If path is empty, it's home. Point to index.html for GCS compatibility.
-  if (!path) {
-    path = 'index.html';
-  }
+    // Development: Use clean URLs
+    if (process.env.NODE_ENV === 'development') {
+      if (path.endsWith('/')) path = path.slice(0, -1);
+    }
+    // Production: Use explicit index.html for GCS XML endpoint compatibility
+    else {
+      if (!path || path === '/') {
+        path = 'index.html';
+      } else if (!path.includes('.')) {
+        if (path.endsWith('/')) path = path.slice(0, -1);
+        path = `${path}/index.html`;
+      }
+    }
 
-  return <Link className="text-1xl text-center flex justify-center" href={`/${path}`}>{text}</Link>;
-}
+    const finalHref = path.startsWith('/') ? path : `/${path}`;
+
+    return <Link className="text-1xl text-center flex justify-center" href={finalHref}>{text}</Link>;
+  }
