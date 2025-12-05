@@ -1,26 +1,13 @@
 
 const loadAppConfig = () => {
-  
-  const NODE_ENV = process.env || {};
 
-  const api_port = parseInt(NODE_ENV.API_PORT, 10);
+  const env = process.env || {};
 
-  const mongodb_url = NODE_ENV.MONGO_URL;
-  const mongodb_dbname = NODE_ENV.MONGO_DBNAME;
-  const mongodb_secret = NODE_ENV.MONGO_SECRET;
-
-  const redis_port = NODE_ENV.REDIS_PORT;
-  const redis_host = NODE_ENV.REDIS_HOST;
-  const redis_password = NODE_ENV.REDIS_PASSWORD;
+  // Prioritize PORT (Cloud Run) over API_PORT (Local)
+  const api_port = parseInt(env.PORT || env.API_PORT, 10) || 8001;
 
   return {
     api_port,
-    mongodb_url,
-    mongodb_dbname,
-    mongodb_secret,
-    redis_port,
-    redis_host,
-    redis_password,
   };
 };
 
