@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { FirestoreModule } from '../config/firestore/firestore.module';
 
-import { NoteEntity } from './note.entity';
 import NoteController from './note.controller';
 import { NoteService } from './note.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([NoteEntity])],
+  imports: [FirestoreModule],
   controllers: [NoteController],
   providers: [NoteService],
 })
-export class NoteModule {}
+export class NoteModule { }
+

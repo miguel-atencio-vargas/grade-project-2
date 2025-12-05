@@ -233,8 +233,8 @@ docker compose -f "$FRONTEND_DIR/docker-compose.yml" ps
 echo ""
 
 log_info "To view logs, run:"
-echo "  Backend:  docker compose -f ./backend/docker-compose.yml logs -f"
-echo "  Frontend: docker compose -f ./frontend/docker-compose.yml logs -f"
+echo "  Backend:  ./local-dev/run.logs.sh backend
+echo "  Frontend: ./local-dev/run.logs.sh frontend
 echo ""
 
 log_info "To stop all services, run:"

@@ -1,8 +1,7 @@
-import IPostgresql from './redis/redis.interface';
-import IMongoDB from './mongodb/mongodb.interface';
-
-interface IAppConfig extends IPostgresql, IMongoDB {
-  api_port: number,
+export interface IAppConfig {
+  api_port: number;
+  node_env: string;
+  hostname: string;
 }
 
 export default IAppConfig;

@@ -1,9 +1,0 @@
-FROM redis:7.0
-
-# Optional: Copy redis config
-# COPY redis.conf /usr/local/etc/redis/redis.conf
-
-# Expose the port
-EXPOSE $CACHE_PORT
-
-CMD ["redis-server"]
