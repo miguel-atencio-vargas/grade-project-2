@@ -2,21 +2,20 @@ services:
   app:
     build:
       context: .
-      args:
-        - FRONTEND_PORT=${FRONTEND_PORT}
-        - NODE_ENV=${NODE_ENV}
-        - HOSTNAME=${HOSTNAME}
+      dockerfile: Dockerfile
     env_file:
       - .env
     ports:
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+      - ${FRONTEND_PORT}:3000
     volumes:
       - .:/app
       - /app/node_modules
+      - /app/.next
     command: npm run dev
     networks:
-      - backend_netnet
+      - app-network
 
 networks:
-  backend_netnet:
+  app-network:
     external: true
+    name: app-network

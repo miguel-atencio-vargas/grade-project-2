@@ -18,3 +18,9 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     command: npm run start:dev
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    name: app-network
