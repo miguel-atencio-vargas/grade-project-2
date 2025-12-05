@@ -42,10 +42,7 @@ module "backend" {
   firebase_database_id = var.firebase_database_id
 }
 
-module "iam" {
-  source     = "./modules/iam"
-  project_id = var.project_id
-}
+
 
 output "frontend_url" {
   value = module.frontend.bucket_url
