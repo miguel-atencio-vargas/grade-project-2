@@ -6,5 +6,5 @@ interface IGoToPage {
 }
 
 export default function GoToPage({ href, text }: IGoToPage) {
-  return <Link className="text-1xl text-center flex justify-center" href={`/${href}`}>{text}</Link>;
+  return <Link className="text-1xl text-center flex justify-center" href={href}>{text}</Link>;
 }
