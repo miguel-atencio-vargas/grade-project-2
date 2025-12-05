@@ -2,8 +2,8 @@
 import { z } from 'zod';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-export async function updateNote(prevState, formData: FormData ) {
-  
+export async function updateNote(prevState: any, formData: FormData) {
+
   const schema = z.object({
     note: z.string().nullable(),
     isArchived: z.string().nullable(),
@@ -15,17 +15,17 @@ export async function updateNote(prevState, formData: FormData ) {
     isArchived: formData.get('isArchived'),
     isDeleted: formData.get('isDeleted'),
   });
-  
-  
+
+
   if (!parse.success) {
     const errors = parse.error.flatten().fieldErrors;
     console.log('⛳️ | updateNote | errors:', errors);
     return { ...prevState, message: 'Failed to update note!!!' };
   }
-  
+
   const data = parse.data;
 
-  try {    
+  try {
     const body = JSON.stringify({
       uuid: prevState.uuid,
       content: data.note || prevState.content,
