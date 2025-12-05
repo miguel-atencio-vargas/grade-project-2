@@ -20,10 +20,7 @@ variable "backend_service_name" {
   default     = "backend-api"
 }
 
-variable "backend_image" {
-  description = "Docker image for the backend service"
-  type        = string
-}
+
 
 variable "firebase_database_id" {
   description = "The Firestore Database ID"
