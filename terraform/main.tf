@@ -24,13 +24,21 @@ module "frontend" {
   bucket_name = var.frontend_bucket_name
 }
 
+module "artifact_registry" {
+  source     = "./modules/artifact_registry"
+  project_id = var.project_id
+  region     = var.region
+}
+
 module "backend" {
   source               = "./modules/backend"
   project_id           = var.project_id
   region               = var.region
   service_name         = var.backend_service_name
-  image_name           = var.backend_image
-  firebase_project_id  = var.project_id # Assuming same project
+  # Use a public placeholder image for initial deployment to avoid "image not found" error
+  # The actual app image will be deployed by the "Deploy Backend" workflow
+  image_name           = "us-docker.pkg.dev/cloudrun/container/hello" 
+  firebase_project_id  = var.project_id
   firebase_database_id = var.firebase_database_id
 }
 
