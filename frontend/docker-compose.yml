@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        - FRONTEND_PORT=${FRONTEND_PORT}
+        - NODE_ENV=${NODE_ENV}
+        - HOSTNAME=${HOSTNAME}
+    env_file:
+      - .env
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+    networks:
+      - backend_netnet
+
+networks:
+  backend_netnet:
+    external: true

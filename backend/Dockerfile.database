@@ -1,0 +1,7 @@
+
+FROM mongo:8.0.3
+
+# Optional: copy config files
+# COPY mongo-init.js /docker-entrypoint-initdb.d/
+
+EXPOSE $MONGODB_PORT

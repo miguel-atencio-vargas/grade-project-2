@@ -1,0 +1,53 @@
+
+# Docker YAML anchors
+# https://nickjanetakis.com/blog/docker-tip-82-using-yaml-anchors-and-x-properties-in-docker-compose
+x-shared-config: &shared-config
+  env_file:
+    - .env
+
+
+services:
+  cache:
+    <<: *shared-config
+    build:
+      context: .
+      dockerfile: Dockerfile.cache
+      args:
+        - CACHE_PORT=$CACHE_PORT
+    ports:
+      - ${CACHE_PORT}:${CACHE_PORT}
+    networks:
+      - netnet
+
+  database:
+    <<: *shared-config
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+      args:
+        - DATABASE_PORT=$DATABASE_PORT
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    networks:
+      - netnet
+
+  api:
+    <<: *shared-config
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+      args:
+        - API_PORT=${API_PORT}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    networks:
+      - netnet
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
+
+
+networks:
+  netnet:
+    driver: bridge
