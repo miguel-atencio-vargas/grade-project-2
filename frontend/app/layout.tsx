@@ -15,7 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={`${inter.className} h-screen flex items-center justify-center flex-col`} >
         <header className="text-4xl">
-          <GoToPage href={''} text={'Notepad App'} />
+          <GoToPage href={'index.html'} text={'Notepad App'} />
         </header>
         {children}
       </body>
