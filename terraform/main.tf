@@ -7,7 +7,7 @@ terraform {
   }
   backend "gcs" {
     # The bucket name will be passed via CLI or partial config
-    # bucket = "terraform-state-bucket"
+    # bucket = "terraform-state-bucket-42"
     prefix = "terraform/state"
   }
 }
