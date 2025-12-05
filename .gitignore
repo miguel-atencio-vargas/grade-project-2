@@ -38,3 +38,6 @@ coverage/
 
 # Docker volumes
 volumes/
+
+# Firebase
+firebase-admin.json
