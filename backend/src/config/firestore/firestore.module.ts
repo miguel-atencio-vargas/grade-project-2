@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as admin from 'firebase-admin';
+import { getFirestore } from 'firebase-admin/firestore';
 import firestoreConfig from './firestore.config';
 
 export const FIRESTORE_PROVIDER = 'FIRESTORE';
@@ -14,6 +15,7 @@ export const FIRESTORE_PROVIDER = 'FIRESTORE';
             useFactory: (configService: ConfigService) => {
                 const projectId = configService.get<string>('firestore.projectId');
                 const credentialsPath = configService.get<string>('firestore.credentialsPath');
+                const databaseId = configService.get<string>('firestore.databaseId');
 
                 // Only initialize if not already initialized
                 if (!admin.apps.length) {
@@ -32,7 +34,12 @@ export const FIRESTORE_PROVIDER = 'FIRESTORE';
                     admin.initializeApp(config);
                 }
 
-                return admin.firestore();
+                // If databaseId is provided, connect to that specific database
+                if (databaseId) {
+                    return getFirestore(admin.app(), databaseId);
+                }
+
+                return getFirestore();
             },
             inject: [ConfigService],
         },
