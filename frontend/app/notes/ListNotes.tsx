@@ -34,10 +34,10 @@ export default function ListNotes({ isArchived = false }: { isArchived?: boolean
     <div className='p-3'>
       {
         (notes.length === 0 && isArchived === false)
-          ? <GoToPage href={'./notes/add'} text={'Add a note'} />
+          ? <GoToPage href={'notes/add'} text={'Add a note'} />
           : <ul className='grid grid-cols-4 gap-4'> {notes.map((note: INote) => (
             <li className="border-2 border-slate-700 rounded-lg p-2 overflow-auto" key={note.uuid}>
-              <Link className="text-1xl text-center flex justify-center" href={`./update?uuid=${note.uuid}`}>{note.content}</Link>
+              <Link className="text-1xl text-center flex justify-center" href={`update?uuid=${note.uuid}`}>{note.content}</Link>
             </li>
           ))} </ul>
       }
